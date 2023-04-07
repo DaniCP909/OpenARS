@@ -1,0 +1,13 @@
+{{>header}}
+
+<body>
+<div>
+    <form action="/signup-user" method="post">
+        <label>Nombre de Usuario:</label><input type="text" name="username" /><br />
+        <label>Contraseña:</label><input type="password" name="encodedPassword" /><br />
+        <input type="submit" value="Sign In" /><br />
+        <input type="hidden" name="_csrf" value="{{token}}"/>
+    </form>
+</div>
+
+{{>footer}}
