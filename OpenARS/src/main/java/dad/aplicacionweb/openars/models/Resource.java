@@ -1,15 +1,16 @@
 package dad.aplicacionweb.openars.models;
 
+import dad.aplicacionweb.openars.services.ResourceService;
+import org.hibernate.engine.jdbc.BlobProxy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
 @Entity
 public class Resource {
@@ -17,6 +18,7 @@ public class Resource {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id = null;     //CUIDAO NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
     private String name;
 
@@ -28,13 +30,19 @@ public class Resource {
 
     private boolean is3d;
 
+    @ManyToOne
+    private User owner;
+
+    @OneToMany(mappedBy = "resource")
+    private List<Comment> opinions;
+
     @Lob
     private Blob preview;   //Preview del recurso jpg o png tanto si es 3d como
 
     @Lob
     private Blob file;      //Archivo en si
 
-    public Resource(){}
+    protected Resource(){}
 
     public Resource(String name, String description){
         this.name = name;
@@ -110,9 +118,29 @@ public class Resource {
         this.file = file;
     }
 
+    public User getOwner(){
+        return this.owner;
+    }
+
+    public void setOwner(User owner){
+        this.owner=owner;
+    }
+
+    public List<Comment> getOpinions(){
+        return this.opinions;
+    }
+
+    public void setOpinions(List<Comment> opinions){
+        this.opinions = opinions;
+    }
+
     @Override
     public String toString(){
         return "Nombre de la Obra:" + this.name + " | [Descripción]: " + this.description;
     }
+
+
+
+
 
 }

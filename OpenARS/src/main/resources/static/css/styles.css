@@ -8,9 +8,9 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #6F8494;
+    background-color: white;
     font-family: 'Nunito', sans-serif;
-    color: white;;
+    color: black;
 }
 
 header {
@@ -79,6 +79,30 @@ div {
 }
 
 form label, form input {
+    display: block;
+}
+
+.usernavname{
+    color: mediumpurple;
+}
+
+.logo img{
+    max-height: 50px;
+    max-width: 150px;
+    margin-left: 30px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.preview img{
+    max-height: 300px;
+    max-width: 300px;
+    margin-left: 30px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.datacontainer{
     display: block;
 }
 

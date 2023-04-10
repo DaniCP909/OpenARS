@@ -1,5 +1,4 @@
 {{>header}}
-<body>
 <div>
   <form action="/login" method="post">
     <label>Nombre de Usuario:</label><input type="text" name="username" /><br />
@@ -7,5 +6,4 @@
     <input type="submit" value="Sign In" /><br />
     <input type="hidden" name="_csrf" value="{{token}}"/>
   </form>
-</div>
 {{>footer}}

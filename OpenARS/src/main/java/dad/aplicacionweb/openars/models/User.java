@@ -6,12 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.security.SecureRandom;
 import java.util.List;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity(name = "UserTable")
 public class User {
@@ -19,12 +14,22 @@ public class User {
     @Id@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "username", unique = true)
     private String username;
 
     private String encodedPassword;
 
+    @Column(unique = true)
+    private String email;
+
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private List<Resource> useruploads;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Comment> usercomments;
 
     public User(){
     }
@@ -61,12 +66,28 @@ public class User {
         this.encodedPassword = passEncoder.encode(encodedPassword);
     }
 
+    public String getEmail(){
+        return this.email;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
+    }
+
     public List<String> getRoles() {
         return roles;
     }
 
     public void setRoles(List<String> roles) {
         this.roles = roles;
+    }
+
+    public List<Resource> getUseruploads(){
+        return this.useruploads;
+    }
+
+    public void setUseruploads(List<Resource> useruploads){
+        this.useruploads = useruploads;
     }
 
 }

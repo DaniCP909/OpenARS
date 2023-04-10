@@ -15,19 +15,19 @@ public class ResourceService {
     @Autowired
     private ResourceRepository resourceRepo;
 
-    List<Resource> findAll(){
+    public List<Resource> findAll(){
         return resourceRepo.findAll();
     }
-    Optional<Resource> findById(Long id){
+    public Optional<Resource> findById(Long id){
         return resourceRepo.findById(id);
     }
-    Optional<Resource> findByName(String name){
+    public Optional<Resource> findByName(String name){
         return resourceRepo.findByName(name);
     }
-    void deleteById(Long id){
+    public void deleteById(Long id){
         resourceRepo.deleteById(id);
     }
-    Resource getByName(String name){
+    public Resource getByName(String name){
         return resourceRepo.getByName(name);
     }
 
