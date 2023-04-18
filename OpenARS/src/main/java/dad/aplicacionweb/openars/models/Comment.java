@@ -2,7 +2,7 @@ package dad.aplicacionweb.openars.models;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "commentTable")
 public class Comment {
 
     @Id

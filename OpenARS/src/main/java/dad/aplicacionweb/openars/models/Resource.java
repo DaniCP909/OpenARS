@@ -12,7 +12,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "resourceTable")
 public class Resource {
 
     @Id

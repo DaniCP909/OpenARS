@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface ResourceRepository extends JpaRepository<Resource, Long>{
 
     List<Resource> findAll();
-    Optional<Resource> findById(Long l);
+    Optional<Resource> findById(Long id);
     Optional<Resource> findByName(String name); //El username no se puede repetir
     //----------------ATENCION: cambio a optional no user por error en RepositoryUserDetailsService
     void deleteById(Long id);

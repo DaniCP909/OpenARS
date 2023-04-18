@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findAll();
-    Optional<User> findById(Long l);
+    Optional<User> findById(Long id);
     Optional<User> findByUsername(String username); //El username no se puede repetir
     //----------------ATENCION: cambio a optional no user por error en RepositoryUserDetailsService
     void deleteById(Long id);

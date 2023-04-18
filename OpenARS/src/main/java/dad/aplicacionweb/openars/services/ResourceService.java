@@ -31,4 +31,12 @@ public class ResourceService {
         return resourceRepo.getByName(name);
     }
 
+    public void save(Resource resource){
+        resourceRepo.save(resource);
+    }
+
+    public void delete(Long id){
+        resourceRepo.deleteById(id);
+    }
+
 }

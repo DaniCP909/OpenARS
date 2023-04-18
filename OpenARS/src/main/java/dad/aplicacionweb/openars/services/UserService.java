@@ -37,9 +37,9 @@ public class UserService {
         return userRepo.existsById(id);
 
     }
-    public void save(User use){//guardar el usuario
+    public void save(User user){//guardar el usuario
 
-        userRepo.save(use);
+        userRepo.save(user);
 
     }
 

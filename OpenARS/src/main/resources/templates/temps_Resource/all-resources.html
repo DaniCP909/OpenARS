@@ -1,11 +1,13 @@
 {{>header}}
 
-<div>
+<div class="datacontainer">
     <h3>Todos los recursos:</h3>
     <ul>
-        {{#resources}}
-        <li><a href="/all-resources/{{id}}">{{name}}</a></li>
-        {{/resources}}
+        <div class="preview">
+            {{#resources}}
+            <a href="/all-resources/{{id}}"><img src="{{id}}/preview"></a>
+            {{/resources}}
+        </div>
     </ul>
 </div>
 {{>footer}}

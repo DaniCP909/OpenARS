@@ -1,0 +1,11 @@
+{{>header}}
+
+<div>
+  <h3>Todos los comentarios:</h3>
+  <ul>
+    {{#comments}}
+    <li>[{{user.username}}]: {{content}}</li>
+    {{/comments}}
+  </ul>
+</div>
+{{>footer}}

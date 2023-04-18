@@ -1,22 +1,52 @@
 {{>header}}
 
 
-<div class="preview">
-  {{#resource.bpreview}}
-  <img src="{{resource.id}}/preview">
-  {{/resource.bpreview}}
-  {{^resource.bpreview}}
-  <p>No imagen</p>
-  {{/resource.bpreview}}
+<div class="rscontainer">
+
+
+
+    <div>
+      <div class="preview">
+        {{#resource.bpreview}}
+        <img src="{{resource.id}}/preview">
+        {{/resource.bpreview}}
+        {{^resource.bpreview}}
+        <p>No imagen</p>
+        {{/resource.bpreview}}
+      </div>
+
+      <div class="datacontainer">
+
+        <h2>{{resource.name}}</h2>
+        <p>{{resource.description}}</p>
+        {{#logged}}
+        <a href="{{resource.id}}/file" type="application/zip" download><button>Descargar</button></a>
+        {{/logged}}
+
+      </div>
+    </div>
+
+    <div class="opinions">
+      <h3>Opiniones:</h3>
+      <ul>
+        {{#opinions}}
+        <li>[{{user.username}}]: {{content}}</li>
+        {{/opinions}}
+        {{#logged}}
+        <form action="/{{resource.id}}/addcomment" method="post">
+          <input type="text" name="opinion" /><br />
+          <input type="submit" value="Comentar" /><br />
+          <input type="hidden" name="_csrf" value="{{token}}"/>
+        </form>
+        {{/logged}}
+      </ul>
+    </div>
+
+
+
+
 </div>
 
-<div class="datacontainer">
 
-  <h2>{{resource.name}}</h2>
-  <p>{{resource.description}}</p>
-  {{#logged}}
-  <a href="{{resource.id}}/file" type="application/zip" download><button>Descargar</button></a>
-  {{/logged}}
 
-</div>
 {{>footer}}

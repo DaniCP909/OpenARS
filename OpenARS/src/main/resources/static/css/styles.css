@@ -87,8 +87,8 @@ form label, form input {
 }
 
 .logo img{
-    max-height: 50px;
-    max-width: 150px;
+    max-height: 80px;
+    max-width: 180px;
     margin-left: 30px;
     width: 100%;
     object-fit: cover;
@@ -105,6 +105,18 @@ form label, form input {
 .datacontainer{
     display: block;
 }
+
+.rscontainer{
+    display: block;
+    justify-content: center;
+}
+
+.opinions{
+    display: block;
+    margin-left: 25%;
+}
+
+
 
 
 

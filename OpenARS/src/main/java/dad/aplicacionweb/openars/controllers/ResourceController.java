@@ -1,7 +1,10 @@
 package dad.aplicacionweb.openars.controllers;
 
+import dad.aplicacionweb.openars.models.Comment;
 import dad.aplicacionweb.openars.models.Resource;
+import dad.aplicacionweb.openars.services.CommentService;
 import dad.aplicacionweb.openars.services.ResourceService;
+import dad.aplicacionweb.openars.services.UserService;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -9,10 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.util.Optional;
+import java.util.List;
 
 
 @Controller
@@ -27,7 +28,13 @@ import java.util.Optional;
 public class ResourceController {
 
     @Autowired
-    ResourceService resourceServ;
+    private ResourceService resourceServ;
+
+    @Autowired
+    private CommentService commentServ;
+
+    @Autowired
+    private UserService userServ;
 
     @ModelAttribute
     public void addAttributes(Model model, HttpServletRequest request){
@@ -58,6 +65,7 @@ public class ResourceController {
         Optional<Resource> resource = resourceServ.findById(id);
         if(resource.isPresent()){
             model.addAttribute("resource", resource.get());
+            model.addAttribute("opinions", resource.get().getOpinions());
             return "temps_Resource/resource";
         }
         else{
@@ -100,6 +108,7 @@ public class ResourceController {
             return ResponseEntity.notFound().build();
         }
     }
+
 
 
     private void updateImage(Resource resource, boolean removeImage, MultipartFile imageField) throws IOException, SQLException {
