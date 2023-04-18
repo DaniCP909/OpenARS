@@ -1,2 +1,2 @@
-# OpenARS
+# Tesseract
 Aplicación Web Spring Boot
