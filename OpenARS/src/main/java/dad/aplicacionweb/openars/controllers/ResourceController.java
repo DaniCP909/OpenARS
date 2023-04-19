@@ -109,6 +109,32 @@ public class ResourceController {
         }
     }
 
+    @GetMapping("/addresource")
+    public String addResource(){
+
+        return "temps_resource/add-resource";
+
+    }
+
+    @PostMapping("/addresource")
+    public String addResourcePost(Model model, Resource resource, HttpServletRequest request, MultipartFile resourceFile) throws IOException{
+
+        Principal principal = request.getUserPrincipal();
+
+        if (!resourceFile.isEmpty()){
+            resource.setFile(BlobProxy.generateProxy(resourceFile.getInputStream(), resourceFile.getSize()));
+            resource.setBfile(true);
+        }
+
+        resource.setOwner(userServ.findByUsername(principal.getName()));
+
+        resourceServ.save(resource);
+
+
+        return "redirect:/all-resources/"+resource.getId();
+
+    }
+
 
 
     private void updateImage(Resource resource, boolean removeImage, MultipartFile imageField) throws IOException, SQLException {

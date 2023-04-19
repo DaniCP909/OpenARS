@@ -1,0 +1,15 @@
+{{>header}}
+
+<body>
+<div>
+    <form action="/all-resources/addresource" method="post" enctype="multipart/form-data">
+        <label>Nombre del recurso:</label><input type="text" name="name" /><br />
+        <label>Descripción:</label><input type="text" name="description" /><br />
+        <label for="archivo">Selecciona un archivo .zip:</label>
+        <input type="file" id="archivo" name="resourceFile" accept=".zip" required>
+        <input type="submit" value="Subir" /><br />
+        <input type="hidden" name="_csrf" value="{{token}}">
+    </form>
+</div>
+
+{{>footer}}
