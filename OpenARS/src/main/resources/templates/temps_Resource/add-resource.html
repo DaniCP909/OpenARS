@@ -5,6 +5,8 @@
     <form action="/all-resources/addresource" method="post" enctype="multipart/form-data">
         <label>Nombre del recurso:</label><input type="text" name="name" /><br />
         <label>Descripción:</label><input type="text" name="description" /><br />
+        <label>Selecciona una imagen previsualización en .png:</label>
+        <input type='file' name='previewFile' accept=".jpg, .png" />
         <label for="archivo">Selecciona un archivo .zip:</label>
         <input type="file" id="archivo" name="resourceFile" accept=".zip" required>
         <input type="submit" value="Subir" /><br />

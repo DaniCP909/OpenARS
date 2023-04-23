@@ -117,13 +117,18 @@ public class ResourceController {
     }
 
     @PostMapping("/addresource")
-    public String addResourcePost(Model model, Resource resource, HttpServletRequest request, MultipartFile resourceFile) throws IOException{
+    public String addResourcePost(Model model, Resource resource, HttpServletRequest request, MultipartFile resourceFile, MultipartFile previewFile) throws IOException{
 
         Principal principal = request.getUserPrincipal();
 
         if (!resourceFile.isEmpty()){
             resource.setFile(BlobProxy.generateProxy(resourceFile.getInputStream(), resourceFile.getSize()));
             resource.setBfile(true);
+        }
+
+        if (!previewFile.isEmpty()){
+            resource.setPreview(BlobProxy.generateProxy(previewFile.getInputStream(), previewFile.getSize()));
+            resource.setBpreview(true);
         }
 
         resource.setOwner(userServ.findByUsername(principal.getName()));
