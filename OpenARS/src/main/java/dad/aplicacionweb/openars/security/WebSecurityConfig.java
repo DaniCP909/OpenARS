@@ -52,6 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/").permitAll();
         http.authorizeRequests().antMatchers("/login").permitAll();		//por que no .loginPage()
         http.authorizeRequests().antMatchers("/loginerror").permitAll();
+        http.authorizeRequests().antMatchers("/signup-user").permitAll();
         http.authorizeRequests().antMatchers("/logout").permitAll();
         http.authorizeRequests().antMatchers("/resources/*").permitAll();
         //http.authorizeRequests().antMatchers("/css/styles.css").permitAll();
@@ -62,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //http.authorizeRequests().antMatchers("/editbook/*").hasAnyRole("USER");
         http.authorizeRequests().antMatchers("/all-comments/").hasAnyRole("ADMIN");
-        http.authorizeRequests().antMatchers("/all-resources/addresource").hasAnyRole("ADMIN");
+        http.authorizeRequests().antMatchers("/all-resources/addresource").hasAnyRole("USER", "ADMIN");
 
         // Login form
         http.formLogin().loginPage("/login");

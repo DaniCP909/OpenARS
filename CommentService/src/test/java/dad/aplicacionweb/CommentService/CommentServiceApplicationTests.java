@@ -1,14 +1,13 @@
-package dad.aplicacionweb.artcadia;
-/*
+package dad.aplicacionweb.CommentService;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ArtcadiaApplicationTests {
+class CommentServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
 	}
 
 }
-*/

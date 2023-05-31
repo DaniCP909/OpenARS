@@ -38,7 +38,7 @@ public class UserController {
 
     @GetMapping("/signup-user")
     public String signupUser(){
-        return "/temps_user/signup_user";
+        return "temps_User/signup_user";
     }
 
     @PostMapping("/signup-user")

@@ -34,10 +34,11 @@ public class User {
     public User(){
     }
 
-    public User(String username, String encodedPassword, String... roles){
+    public User(String username, String encodedPassword, String email, String... roles){
         PasswordEncoder passEncoder = new BCryptPasswordEncoder(10, new SecureRandom());
         this.username = username;
         this.encodedPassword = passEncoder.encode(encodedPassword);
+        this.email = email;
         this.roles = List.of(roles);
     }
 

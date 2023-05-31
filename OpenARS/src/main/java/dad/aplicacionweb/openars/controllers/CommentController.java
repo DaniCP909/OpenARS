@@ -1,10 +1,15 @@
 package dad.aplicacionweb.openars.controllers;
 
+import dad.aplicacionweb.openars.CommentInfoDto;
 import dad.aplicacionweb.openars.models.Comment;
+import dad.aplicacionweb.openars.models.Resource;
+import dad.aplicacionweb.openars.models.User;
 import dad.aplicacionweb.openars.services.CommentService;
 import dad.aplicacionweb.openars.services.ResourceService;
 import dad.aplicacionweb.openars.services.UserService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
 
-
+//@Component
 @Controller
 public class CommentController {
 
@@ -25,6 +30,10 @@ public class CommentController {
 
     @Autowired
     private ResourceService resourceServ;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
 
     @ModelAttribute
     public void addAttributes(Model model, HttpServletRequest request){
@@ -53,8 +62,15 @@ public class CommentController {
 
     @PostMapping("/{id}/addcomment")
     public String addComment(@RequestParam String opinion, HttpServletRequest request, @PathVariable Long id){
-        Comment comment = new Comment(userServ.findByUsername(request.getUserPrincipal().getName()), resourceServ.findById(id).get(), opinion);
+        Resource actual = resourceServ.findById(id).get();
+        User usactual = userServ.findByUsername(request.getUserPrincipal().getName());
+        Comment comment = new Comment(usactual, actual, opinion);
         commentServ.save(comment);
+
+        System.out.println(usactual.getUsername() + " " + actual.getName() + " " + actual.getOwner().getEmail());
+        //rabbitTemplate.convertAndSend(comment.getUser());
+        rabbitTemplate.convertAndSend("notifications", new CommentInfoDto(usactual.getUsername(), actual.getName(), actual.getOwner().getEmail()));
+
         return "redirect:/all-resources/" + id;
     }
 
