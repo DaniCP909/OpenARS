@@ -1,0 +1,21 @@
+package dad.aplicacionweb.openars.controllers;
+
+import org.slf4j.Logger;
+
+@Controller
+public class OpenARSLog {
+
+	private Logger log = LoggerFactory.getLogger(OpenARSLog.class);
+
+	public BookLogger() {}
+
+	@GetMapping("/page_log")
+	public String page(Model model) {
+		log.trace("A TRACE Message");
+		log.debug("A DEBUG Message");
+		log.info("A INFO Mesaage");
+		log.warn("A WARN Message");
+		log.error("An ERROR Message");
+		return "page";
+	}
+}
