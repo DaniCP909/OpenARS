@@ -28,7 +28,7 @@ public class CommentInfoDto {
     }
 
     public String getResourcename(){
-        return this.sender;
+        return this.resourcename;
     }
 
     public void setResourcename(String resourcename){
