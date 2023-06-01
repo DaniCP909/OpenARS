@@ -11,7 +11,7 @@ public class NotificationService {
     @Autowired
     private JavaMailSender emailSender;
 
-    @RabbitListener
+    @RabbitListener(queues = "notifications")
     public void sendSimpleMessage(CommentInfoDto commentInfoDto) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("noreply@bealdung.com");    //¿Se puede cambiar?
@@ -19,5 +19,6 @@ public class NotificationService {
         message.setSubject("Nuevo comentario en tu recurso");
         message.setText(commentInfoDto.getSender() + " ha comentado en tu recurso "+ commentInfoDto.getResourcename());
         emailSender.send(message);
+        System.out.println("______________________________________________");
     }
 }

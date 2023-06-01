@@ -14,7 +14,6 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @SpringBootApplication
-@EnableRabbit
 public class OpenarsApplication {
 
 	public static void main(String[] args) {
