@@ -53,7 +53,7 @@ public class CommentServiceApplication {
 		mailSender.setPort(587);
 
 		mailSender.setUsername("tesseractsbservice@gmail.com");
-		mailSender.setPassword("buxkrgblerpbkfim");	//¿cambiar?
+		mailSender.setPassword("");	//¿cambiar?
 
 		Properties props = mailSender.getJavaMailProperties();
 		props.put("mail.transport.protocol", "smtp");
