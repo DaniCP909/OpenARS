@@ -1,0 +1,13 @@
+{{>header}}
+
+<div class="datacontainer">
+  <h2>{{user.username}}</h2>
+  <button onclick="location.href='/'">Inicio</button>
+  <button onclick="location.href='/edit-user'">Editar perfil</button>
+  <ul>
+    {{#user.roles}}
+    <li>{{.}}</li>
+    {{/user.roles}}
+  </ul>
+</div>
+{{>footer}}

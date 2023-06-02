@@ -22,9 +22,12 @@
                 </li>
                 {{#logged}}
                 <li class="nav-item">
-                    <p class="usernavname">
-                        {{username}}
-                    </p></li>
+
+                        <a onclick="location.href='/profile'" >
+                            <p class="usernavname">{{username}}</p>
+                        </a>
+
+                </li>
                 <li class="nav-item">
                     <form action="/logout" method="post">
                     <button class="btn btn-default navbar-btn" type="submit">Log

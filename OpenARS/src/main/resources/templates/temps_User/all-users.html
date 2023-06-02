@@ -1,0 +1,15 @@
+{{>header}}
+
+<div class="datacontainer">
+    <h2>Usuarios Registrados:</h2>
+    <ul>
+        {{#users}}
+        <li>{{username}}
+            {{#admin}}
+            <button onclick="location.href='/remove-user/{{id}}'">Borrar</button>
+            {{/admin}}
+        </li>
+        {{/users}}
+    </ul>
+</div>
+{{>footer}}

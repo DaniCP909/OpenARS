@@ -1,0 +1,22 @@
+{{>header}}
+
+<form action="/edit-user" method="post" >
+  <h2>Usuario con ID: {{user.id}} y nombre de usuario "{{user.username}}"</h2>
+
+  <input type="hidden" name="id" value="{{user.id}}" />
+  <p>Nombre: </p>
+  <input type='text' name='username' value="{{user.username}}"/>
+  <p>Correo:</p>
+  <input type='text' name='email' value="{{user.email}}"/>
+  <p>Contraseña: </p>
+  <input type='text' name='encodedPassword' placeholder="Contraseña"/>
+
+  {{#logged}}
+
+  <p><a href="/profile"> Cancelar </a></p>
+  <input type="hidden" name="_csrf" value="{{token}}" />
+  <input type="submit" value="Save" />
+  {{/logged}}
+</form>
+
+{{>footer}}}

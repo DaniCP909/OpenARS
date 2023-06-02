@@ -69,7 +69,7 @@ public class CommentController {
 
         System.out.println(usactual.getUsername() + " " + actual.getName() + " " + actual.getOwner().getEmail());
         //rabbitTemplate.convertAndSend(comment.getUser());
-        rabbitTemplate.convertAndSend("notifications", new CommentInfoDto(usactual.getUsername(), actual.getName(), actual.getOwner().getEmail()));
+        //rabbitTemplate.convertAndSend("notifications", new CommentInfoDto(usactual.getUsername(), actual.getName(), actual.getOwner().getEmail()));
 
         return "redirect:/all-resources/" + id;
     }
