@@ -23,10 +23,10 @@ public class CommentServiceApplication {
 		SpringApplication.run(CommentServiceApplication.class, args);
 	}
 
-	@Value("spring.mail.user")
+	@Value("${spring.mail.user}")
 	public String username;
 
-	@Value("spring.mail.password")
+	@Value("${spring.mail.password}")
 	public String password;
 
 	@Bean
