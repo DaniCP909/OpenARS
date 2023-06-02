@@ -23,7 +23,7 @@ public class CommentServiceApplication {
 		SpringApplication.run(CommentServiceApplication.class, args);
 	}
 
-	@Value("${spring.mail.user}")
+	@Value("${spring.mail.username}")
 	public String username;
 
 	@Value("${spring.mail.password}")
@@ -51,6 +51,9 @@ public class CommentServiceApplication {
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 		mailSender.setHost("smtp.gmail.com");
 		mailSender.setPort(587);
+		
+		System.out.println("El usuario es: "+ username);
+		System.out.println("La contraseña es: "+ password);
 
 		mailSender.setUsername(username);
 		mailSender.setPassword(password);	//¿cambiar?
