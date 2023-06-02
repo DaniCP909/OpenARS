@@ -52,8 +52,8 @@ public class CommentServiceApplication {
 		mailSender.setHost("smtp.gmail.com");
 		mailSender.setPort(587);
 
-		mailSender.setUsername("${spring.mail.username}");
-		mailSender.setPassword("${spring.mail.password}");	//¿cambiar?
+		mailSender.setUsername(username);
+		mailSender.setPassword(password);	//¿cambiar?
 
 		Properties props = mailSender.getJavaMailProperties();
 		props.put("mail.transport.protocol", "smtp");
