@@ -5,7 +5,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=tesseract
-  OpenARS:
+  openars:
     build: OpenARS/.
     expose:
       - "8443"
@@ -19,7 +19,7 @@ services:
       replicas: 2
   broker:
     image: rabbitmq
-  CommentService:
+  commentservice:
     build: CommentService/.
     environment:
       - SPRING_RABBITMQ_HOST=broker
