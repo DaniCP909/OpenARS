@@ -22,6 +22,9 @@
         {{#logged}}
         <a href="{{resource.id}}/file" type="application/zip" download><button>Descargar</button></a>
         {{/logged}}
+        {{#isowner}}
+        <a href="{{resource.id}}/edit-resource"><button>Editar recurso</button></a>
+        {{/isowner}}
 
       </div>
     </div>

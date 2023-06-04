@@ -7,6 +7,7 @@ import dad.aplicacionweb.openars.services.CommentService;
 import dad.aplicacionweb.openars.services.ResourceService;
 import dad.aplicacionweb.openars.services.UserService;
 import org.hibernate.engine.jdbc.BlobProxy;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -61,12 +62,23 @@ public class ResourceController {
     }
 
     @GetMapping("/{id}")
-    public String showResource(Model model, @PathVariable Long id){
+    public String showResource(Model model, @PathVariable Long id, HttpServletRequest request){
 
         Optional<Resource> resource = resourceServ.findById(id);
+
+        boolean isowner = false;
+
         if(resource.isPresent()){
+            Principal principal = request.getUserPrincipal();
+            User logged = userServ.findByUsername(principal.getName());
+
+            Resource rsc = resource.get();
+
+            if(rsc.getOwner().getUsername().equals(logged.getUsername()))   isowner = true;
+
             model.addAttribute("resource", resource.get());
             model.addAttribute("opinions", resource.get().getOpinions());
+            model.addAttribute("isowner", isowner);
             return "temps_Resource/resource";
         }
         else{
@@ -109,6 +121,35 @@ public class ResourceController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/{id}/edit-resource")
+    public String editResource(Model model, @PathVariable Long id){
+        Optional<Resource> resource = resourceServ.findById(id);
+        if(resource.isPresent()){
+            Resource actual = resource.get();
+            User owner = actual.getOwner();
+            model.addAttribute("actresource", actual);
+            model.addAttribute("rscowner", owner);
+        }
+        return "temps_Resource/edit-resource";
+    }
+
+    @PostMapping("/{id}/edit-resource")
+    public String editResourcePost(Model model, @PathVariable Long id, Resource resource){
+        Optional<Resource> preresource = resourceServ.findById(id);
+
+        resource.setOwner(preresource.orElseThrow().getOwner());
+        resource.setFile(preresource.orElseThrow().getFile());
+        resource.setPreview(preresource.orElseThrow().getPreview());
+
+        resource.setBpreview(true);
+        resource.setBfile(true);
+
+        resourceServ.save(resource);
+        return "redirect:/all-resources/" + resource.getId();
+    }
+
+    
 
     @GetMapping("/addresource/{userid}")
     public String addResource(Model model, @PathVariable Long userid){

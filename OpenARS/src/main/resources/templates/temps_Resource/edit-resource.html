@@ -1,0 +1,22 @@
+{{>header}}
+
+<body>
+
+
+<body>
+<div>
+  <form action="/all-resources/{{actresource.id}}/edit-resource/" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="{{actresource.id}}"/>
+    <input type="hidden" name="name" value="{{actresource.name}}"/>
+    <h3>"{{actresource.name}}"</h3>
+    <label>Descripción:</label><input type="text" name="description" value="{{actresource.description}}"/><br />
+    <label>Selecciona una imagen previsualización en .png:</label>
+    <input type='file' name='previewFile' accept=".jpg, .png" />
+    <label for="archivo">Selecciona un archivo .zip:</label>
+    <input type="file" id="archivo" name="resourceFile" accept=".zip">
+    <input type="submit" value="Subir" /><br />
+    <input type="hidden" name="_csrf" value="{{token}}">
+  </form>
+</div>
+
+{{>footer}}
