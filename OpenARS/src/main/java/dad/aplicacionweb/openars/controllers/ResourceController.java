@@ -2,6 +2,7 @@ package dad.aplicacionweb.openars.controllers;
 
 import dad.aplicacionweb.openars.models.Comment;
 import dad.aplicacionweb.openars.models.Resource;
+import dad.aplicacionweb.openars.models.User;
 import dad.aplicacionweb.openars.services.CommentService;
 import dad.aplicacionweb.openars.services.ResourceService;
 import dad.aplicacionweb.openars.services.UserService;
@@ -109,17 +110,20 @@ public class ResourceController {
         }
     }
 
-    @GetMapping("/addresource")
-    public String addResource(){
+    @GetMapping("/addresource/{userid}")
+    public String addResource(Model model, @PathVariable Long userid){
+
+        model.addAttribute("userid", userid);
 
         return "temps_resource/add-resource";
 
     }
 
-    @PostMapping("/addresource")
-    public String addResourcePost(Model model, Resource resource, HttpServletRequest request, MultipartFile resourceFile, MultipartFile previewFile) throws IOException{
+    @PostMapping("/addresource/{userid}")
+    public String addResourcePost(Model model, Resource resource, HttpServletRequest request, @PathVariable Long userid, MultipartFile resourceFile, MultipartFile previewFile) throws IOException{
 
-        Principal principal = request.getUserPrincipal();
+        Optional<User> actual = userServ.findById(userid);
+
 
         if (!resourceFile.isEmpty()){
             resource.setFile(BlobProxy.generateProxy(resourceFile.getInputStream(), resourceFile.getSize()));
@@ -131,7 +135,7 @@ public class ResourceController {
             resource.setBpreview(true);
         }
 
-        resource.setOwner(userServ.findByUsername(principal.getName()));
+        resource.setOwner(actual.get());
 
         resourceServ.save(resource);
 

@@ -70,7 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //http.authorizeRequests().antMatchers("/editbook/*").hasAnyRole("USER");
         http.authorizeRequests().antMatchers("/all-comments/").hasAnyRole("ADMIN");
-        http.authorizeRequests().antMatchers("/all-resources/addresource").hasAnyRole("USER", "ADMIN");//en template user no tiene acceso
+        http.authorizeRequests().antMatchers("/all-resources/addresource/*").hasAnyRole("USER", "ADMIN");//en template user no tiene acceso
 
         // Login form
         http.formLogin().loginPage("/login");
