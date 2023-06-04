@@ -5,6 +5,7 @@
   <button onclick="location.href='/'">Inicio</button>
   <button onclick="location.href='/edit-user/{{userid}}'">Editar perfil</button>
   <button onclick="location.href='/all-resources/addresource/{{userid}}'">Subir recurso</button>
+  <button onclick="location.href='/{{userid}}/all-user-comments'">Todos mis comentarios</button>
   <ul>
     {{#user.roles}}
     <li>{{.}}</li>

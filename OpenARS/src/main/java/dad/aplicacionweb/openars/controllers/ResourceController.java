@@ -149,7 +149,12 @@ public class ResourceController {
         return "redirect:/all-resources/" + resource.getId();
     }
 
-    
+    @GetMapping("/{id}/delete-resource")
+    public String deleteResource(Model model, @PathVariable Long id){
+        model.addAttribute("rscname", resourceServ.findById(id).get().getName());
+        resourceServ.deleteById(id);
+        return "temps_Resource/removed-resource";
+    }
 
     @GetMapping("/addresource/{userid}")
     public String addResource(Model model, @PathVariable Long userid){

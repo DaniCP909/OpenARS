@@ -1,0 +1,14 @@
+{{>header}}
+
+<body>
+<div>
+  <ul>
+    {{#actualuser.usercomments}}
+      <li>[{{resource.name}}]: {{content}}</li>
+      <button onclick="location.href='/{{id}}/edit-comment'">Editar</button>
+      <button onclick="location.href='/{{id}}/delete-comment'">Borrar</button>
+    {{/actualuser.usercomments}}
+  </ul>
+</div>
+
+{{>footer}}

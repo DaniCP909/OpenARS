@@ -1,0 +1,17 @@
+{{>header}}
+
+<body>
+
+
+<body>
+<div>
+  <form action="/{{comment.id}}/edit-comment/" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="{{comment.id}}"/>
+    <label>Editar comentario:</label><input type="text" name="content" value="{{comment.content}}"/><br />
+    <input type="submit" value="Editar" /><br />
+    <input type="hidden" name="_csrf" value="{{token}}">
+  </form>
+</div>
+
+{{>footer}}
+
