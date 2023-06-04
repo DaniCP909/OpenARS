@@ -51,12 +51,12 @@ public class UserController {
     @GetMapping("/profile")
     public String showProfile(Model model, HttpServletRequest request){
 
-        Principal principal = request.getUserPrincipal();
 
-        String loggedname = principal.getName();
+        String loggedname = (String)model.getAttribute("username");
 
         User user = userServ.findByUsername(loggedname);
 
+        model.addAttribute("userid", user.getId());
         model.addAttribute("user", user);
 
 
@@ -70,6 +70,9 @@ public class UserController {
 
     @PostMapping("/signup-user")
     public String signupUserPost(User user){
+        List<String> roles = new ArrayList<String>();
+        roles.add("USER");
+        user.setRoles(roles);
         userServ.save(user);
         return "redirect:/";
     }
@@ -87,27 +90,33 @@ public class UserController {
 
     }
 
-    @GetMapping("/edit-user")
-    public String editUsuario(Model model, HttpServletRequest request) {
+    @GetMapping("/edit-user/{id}")
+    public String editUser(Model model, HttpServletRequest request, @PathVariable Long id) {
 
-        Principal principal = request.getUserPrincipal();
+        Optional<User> iduser = userServ.findById(id);
 
-        User user = userServ.findByUsername(principal.getName());
-        model.addAttribute("user", user);
-
+        if(iduser.isPresent()){
+            model.addAttribute("user", iduser.get());
+            model.addAttribute("userid", id);
+        }
 
         return "temps_User/edit-user";
 
     }
 
-    @PostMapping("/edit-user")
-    public String editUsuario(Model model, User user){
+    @PostMapping("/edit-user/{id}")
+    public String editUerProcess(Model model, User user, @PathVariable Long id){
 
-        userServ.save(user);
+        Optional<User> actualuser = userServ.findById(id);
 
-        model.addAttribute("userid", user.getId());
+        if(actualuser.isPresent()){
+            List<String> newroles = actualuser.get().getRoles();
+            user.setRoles(newroles);
+            userServ.save(user);
+        }
 
-        return "redirect:/profile";
+
+        return "redirect:/";
     }
 
 }

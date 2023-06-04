@@ -3,7 +3,7 @@
 <div class="datacontainer">
   <h2>{{user.username}}</h2>
   <button onclick="location.href='/'">Inicio</button>
-  <button onclick="location.href='/edit-user'">Editar perfil</button>
+  <button onclick="location.href='/edit-user/{{userid}}'">Editar perfil</button>
   <ul>
     {{#user.roles}}
     <li>{{.}}</li>

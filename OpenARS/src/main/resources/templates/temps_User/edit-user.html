@@ -1,11 +1,12 @@
 {{>header}}
 
-<form action="/edit-user" method="post" >
-  <h2>Usuario con ID: {{user.id}} y nombre de usuario "{{user.username}}"</h2>
+<form action="/edit-user/{{user.id}}" method="post" >
+  <h2>Usuario con ID: {{userid}} y nombre de usuario "{{user.username}}"</h2>
 
   <input type="hidden" name="id" value="{{user.id}}" />
-  <p>Nombre: </p>
-  <input type='text' name='username' value="{{user.username}}"/>
+  <input type="hidden" name="username" value="{{user.username}}" />
+  <!--p>Nombre: </p>
+  <input type='text' name='username' value="{{user.username}}"/-->
   <p>Correo:</p>
   <input type='text' name='email' value="{{user.email}}"/>
   <p>Contraseña: </p>
