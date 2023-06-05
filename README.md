@@ -30,7 +30,7 @@ En esta fase se implementa la persistencia de datos en una base de datos MySql. 
 
 Nada mas acceder a la web, de momento escribiendo en el navegador localhost:8080, se nos presenta la pantalla de inicio, donde podremos accedes a los dos grupos principales de recursos, 2D y 3D. Además podremos registrarnos o bien iniciar sesión en caso de tener una cuenta. 
 
-![image](https://github.com/DaniCP909/Tesseract/assets/123632882/6075a176-d5dd-47be-845b-7332d892006a)
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/501dd951-f6a5-4167-aaf9-ecf6c08b5853)
 
 
 
@@ -72,7 +72,8 @@ Desde el perfil podremos crear recursos que se asociarán directamente al usuari
 
 Al crear el recurso se nos dirige a la pantalla del propio recurso.
 
-![image](https://github.com/DaniCP909/Tesseract/assets/123632882/48185958-2dee-4b41-a0dc-0a39be4b0371)
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/d073d1b1-3b0e-4f52-98c4-22a30d22085f)
+
 
 Si nos dirigimos al perfil, aparece nuestro recurso subido. Este también es accesible desde la pantalla "Todos los recursos"
 Cambiamos a User 1 que ya tiene varios recursos subidos a su perfil.
