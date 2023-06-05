@@ -21,5 +21,6 @@ services:
     build: CommentService/.
     environment:
       - SPRING_RABBITMQ_HOST=broker
+      - SPRING_MAIL_PASSWORD=buxkrgblerpbkfim
     
   
