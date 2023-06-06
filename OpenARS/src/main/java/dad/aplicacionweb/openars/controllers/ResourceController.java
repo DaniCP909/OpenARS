@@ -162,7 +162,7 @@ public class ResourceController {
 
         model.addAttribute("userid", userid);
 
-        return "temps_resource/add-resource";
+        return "temps_Resource/add-resource";
 
     }
 

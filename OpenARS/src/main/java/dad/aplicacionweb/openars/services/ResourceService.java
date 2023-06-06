@@ -39,12 +39,12 @@ public class ResourceService {
         return resourceRepo.getByName(name);
     }
 
-    //@CacheEvict(value="resources", allEntries = true)
+    @CacheEvict(value="resources", allEntries = true)
     public void save(Resource resource){
         resourceRepo.save(resource);
     }
 
-    //@CacheEvict(value="resources", allEntries = true)
+    @CacheEvict(value="resources", allEntries = true)
     public void delete(Long id){
         resourceRepo.deleteById(id);
     }
