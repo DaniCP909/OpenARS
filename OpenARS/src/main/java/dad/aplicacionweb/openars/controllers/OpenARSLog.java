@@ -1,13 +1,17 @@
 package dad.aplicacionweb.openars.controllers;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class OpenARSLog {
 
 	private Logger log = LoggerFactory.getLogger(OpenARSLog.class);
 
-	public BookLogger() {}
+	public OpenARSLog() {}
 
 	@GetMapping("/page_log")
 	public String page(Model model) {
