@@ -13,7 +13,7 @@ public class OpenARSLog {
 
 	public OpenARSLog() {}
 
-	@GetMapping("/page_log")
+	@GetMapping("/openars-page_log")
 	public String page(Model model) {
 		log.trace("A TRACE Message");
 		log.debug("A DEBUG Message");
