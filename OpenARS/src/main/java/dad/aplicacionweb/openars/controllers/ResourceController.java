@@ -9,6 +9,7 @@ import dad.aplicacionweb.openars.services.UserService;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
