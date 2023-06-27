@@ -22,5 +22,13 @@ services:
     environment:
       - SPRING_RABBITMQ_HOST=broker
       - SPRING_MAIL_PASSWORD=
-    
+  loadbalancer:
+    image: haproxy:2.7.3
+    ports:
+      - "9443:443" # Only service that is exposed to the host is the lb
+      - "8181:8181" # Haproxy Stats
+      - "9090:80" # http (should not work)
+    volumes:
+      - "./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro"
+    restart: unless-stopped  
   
