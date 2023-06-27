@@ -15,6 +15,9 @@ services:
     environment:
       - SPRING_RABBITMQ_HOST=broker
       - SPRING_DATASOURCE_URL=jdbc:mysql://db/tesseract
+    deploy:
+      mode: replicated
+      replicas: 2
   broker:
     image: rabbitmq
   commentservice:
@@ -22,6 +25,9 @@ services:
     environment:
       - SPRING_RABBITMQ_HOST=broker
       - SPRING_MAIL_PASSWORD=
+    deploy:
+      mode: replicated
+      replicas: 2
   loadbalancer:
     image: haproxy:2.7.3
     ports:
