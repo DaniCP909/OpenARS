@@ -70,12 +70,13 @@ public class ResourceController {
         boolean isowner = false;
 
         if(resource.isPresent()){
-            Principal principal = request.getUserPrincipal();
-            User logged = userServ.findByUsername(principal.getName());
-
             Resource rsc = resource.get();
-
-            if(rsc.getOwner().getUsername().equals(logged.getUsername()))   isowner = true;
+            if(request.isUserInRole("USER")){
+                Principal principal = request.getUserPrincipal();
+                User logged = userServ.findByUsername(principal.getName());
+                if(rsc.getOwner().getUsername().equals(logged.getUsername()))   isowner = true;
+            }
+            
 
             model.addAttribute("resource", resource.get());
             model.addAttribute("opinions", resource.get().getOpinions());
