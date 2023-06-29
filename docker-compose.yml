@@ -9,8 +9,6 @@ services:
     build: OpenARS/.
     expose:
       - "8443"
-    ports:
-      - "8443:8443"
     restart: unless-stopped
     environment:
       - SPRING_RABBITMQ_HOST=broker
@@ -24,7 +22,7 @@ services:
     build: CommentService/.
     environment:
       - SPRING_RABBITMQ_HOST=broker
-      - SPRING_MAIL_PASSWORD=
+      - SPRING_MAIL_PASSWORD=buxkrgblerpbkfim
     deploy:
       mode: replicated
       replicas: 2
