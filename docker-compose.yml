@@ -11,8 +11,8 @@ services:
       - "8443"
     restart: unless-stopped
     environment:
-      - SPRING_RABBITMQ_HOST=broker
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db/tesseract
+      - SPRING_RABBITMQ_HOST=tesseract_broker_1
+      - SPRING_DATASOURCE_URL=jdbc:mysql://tesseract_db_1/tesseract
     deploy:
       mode: replicated
       replicas: 2
@@ -21,7 +21,7 @@ services:
   commentservice:
     build: CommentService/.
     environment:
-      - SPRING_RABBITMQ_HOST=broker
+      - SPRING_RABBITMQ_HOST=tesseract_broker_1
       - SPRING_MAIL_PASSWORD=buxkrgblerpbkfim
     deploy:
       mode: replicated

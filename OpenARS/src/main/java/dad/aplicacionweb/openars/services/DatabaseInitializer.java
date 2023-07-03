@@ -15,7 +15,7 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-@Service
+//@Service
 public class DatabaseInitializer {
 
     @Autowired
@@ -27,7 +27,7 @@ public class DatabaseInitializer {
     @Autowired
     private CommentRepository commentRepo;
 
-    @PostConstruct
+    //@PostConstruct
     public void init() throws IOException, URISyntaxException{
 
         User admin = new User("admin", "adminpass", "tesseractsbservice@gmail.com", "ADMIN");
