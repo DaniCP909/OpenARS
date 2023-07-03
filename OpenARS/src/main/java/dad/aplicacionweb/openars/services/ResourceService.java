@@ -13,14 +13,11 @@ import dad.aplicacionweb.openars.models.Resource;
 import dad.aplicacionweb.openars.repositories.ResourceRepository;
 
 @Service
-
-@CacheConfig(cacheNames="resources")
 public class ResourceService {
 
     @Autowired
     private ResourceRepository resourceRepo;
 
-    @Cacheable
     public List<Resource> findAll(){
         return resourceRepo.findAll();
     }
@@ -28,7 +25,6 @@ public class ResourceService {
         return resourceRepo.findById(id);
     }
 
-    @Cacheable
     public Optional<Resource> findByName(String name){
         return resourceRepo.findByName(name);
     }
@@ -39,12 +35,12 @@ public class ResourceService {
         return resourceRepo.getByName(name);
     }
 
-    @CacheEvict(value="resources", allEntries = true)
+
     public void save(Resource resource){
         resourceRepo.save(resource);
     }
 
-    @CacheEvict(value="resources", allEntries = true)
+
     public void delete(Long id){
         resourceRepo.deleteById(id);
     }

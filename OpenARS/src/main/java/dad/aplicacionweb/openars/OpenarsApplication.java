@@ -1,6 +1,8 @@
 package dad.aplicacionweb.openars;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import dad.aplicacionweb.openars.controllers.OpenARSLog;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -18,6 +20,8 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 @EnableCaching
 @SpringBootApplication
@@ -46,10 +50,25 @@ public class OpenarsApplication {
 		return jsonRabbitTemplate;
 	}
 
+
+	@Primary
 	@Bean
-	public CacheManager cacheManager() {
-		LOG.info("Activating cache...");
+	public CacheManager defaultCacheManager(){
+		return new ConcurrentMapCacheManager();
+	}
+
+	@Bean
+	public CacheManager resourcesCacheManager() {
+		LOG.info("Activating cache resources...");
 		return new ConcurrentMapCacheManager("resources");
+	}
+
+	@Bean
+	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter(mapper);
+		return converter;
 	}
 
 }

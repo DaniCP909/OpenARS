@@ -1,5 +1,6 @@
 package dad.aplicacionweb.openars.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dad.aplicacionweb.openars.services.ResourceService;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,11 @@ public class Resource {
     private boolean is3d;
 
     @ManyToOne
+    @JsonIgnore
     private User owner;
 
     @OneToMany(mappedBy = "resource")
+    @JsonIgnore
     private List<Comment> opinions;
 
     @Lob
