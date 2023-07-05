@@ -126,9 +126,17 @@ Y al borrar se nos dirige a la pantalla que nos indica que se ha borrado correct
 
 Se ha implementado un login para que los usuarios puedan acceder a la web, al igual que el registro para los que todavía no se han dado de alta en la aplicación. Además se han añadido sus respectivas plantillas así como la pantalla de error de login.
 
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/cbfbfdfb-e21a-4ff7-a09e-1c70c49fe709)
 
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/7305f387-ab86-46c0-8289-444ad52169b3)
 
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/28028a72-b0a5-447d-ac51-290cc2372860)
 
+### Pantallas públicas y privadas
+
+![PANTALLAS](https://github.com/DaniCP909/Tesseract/assets/123632882/9bd4c95b-c0bb-4cb8-b326-6b95f77b066a)
+
+Además, en el archivo WebSecurityConfig, se especifica el grado de acceso según los roles del usuario a las distintas URL's.
 
 
 
