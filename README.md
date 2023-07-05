@@ -122,9 +122,9 @@ Y al borrar se nos dirige a la pantalla que nos indica que se ha borrado correct
 
 ## Fase 3
 
+### Login
 
-
-
+Se ha implementado un login para que los usuarios puedan acceder a la web, al igual que el registro para los que todavía no se han dado de alta en la aplicación. Además se han añadido sus respectivas plantillas así como la pantalla de error de login.
 
 
 
