@@ -71,11 +71,13 @@ public class ResourceController {
 
         if(resource.isPresent()){
             Resource rsc = resource.get();
-            if(request.isUserInRole("USER")){
-                Principal principal = request.getUserPrincipal();
+
+            Principal principal = request.getUserPrincipal();
+            if(principal != null){
                 User logged = userServ.findByUsername(principal.getName());
                 if(rsc.getOwner().getUsername().equals(logged.getUsername()))   isowner = true;
             }
+
             
 
             model.addAttribute("resource", resource.get());
