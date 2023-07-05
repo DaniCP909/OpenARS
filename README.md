@@ -138,9 +138,37 @@ Se ha implementado un login para que los usuarios puedan acceder a la web, al ig
 
 Además, en el archivo WebSecurityConfig, se especifica el grado de acceso según los roles del usuario a las distintas URL's.
 
+### HTTPS
+Para implementar HTTPS en la aplicación web se ha generado un certificado SSL autofirmado. Este dió problemas, por lo tanto se usó el certificado que se proporciona en el proyecto de prueba de la Fase 3. En el momento de creación se añade al fichero keystore.jks.
+En el archivo application.properties se especifica el fichero antriormente comentado, y se especifica el puerto 8443.
 
+En la siguiente captura se puede ver el certificado desde el navegador, y a continuación podemos comprobar que se accede con la URL con HTTPS.
 
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/e30e7172-64cd-4dee-8f5d-2be7f4152c42)
 
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/b012ea5c-6c44-4aa6-ab28-26528c5d28cb)
+Al ser un certificado autofirmado, y no generado por una entidad autorizada, el sitio aparece como No Seguro.
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/8ed11e88-ed84-4ae9-b6dc-bc5afea1837e)
+
+#### CSRF
+
+Para la parte HTTPS se han añadido unas clases qeu permitan el uso de tokens generados por "interceptor", a modo de salvaguarda básico contra ataques Cross Site Request Forgery.
+A continuación se muestra la clase y cómo se reflejan en las plantillas HTML.
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/ba1cf20e-560e-408b-b710-ba200767c56c)
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/b65de4c0-98f8-44bd-abcf-cf2acb9a6d8d)
+
+### Servicio Interno y Mecanismo de comunicación
+
+Se ha creado un nuevo proyecto Spring Boot llamado "Comment Service", el cual se encargará de procesar los comentarios añadidos a los recursos subidos por los usuarios, y enviará un mail al dueño del recurso a modo de "notificación".
+
+Para comunicar ambos servicios se ha decidido implementar una Cola de Mensajes con RabbitMQ.
+![ServicioInternoEsquema](https://github.com/DaniCP909/Tesseract/assets/123632882/db437245-a65d-48c8-90b3-5a13c5e7c97c)
+
+En la pantalla "Recurso" encontramos varias opciones, entre ellas, en la parte inferior, un cuadro con los comentarios que dejan los usuarios en dicho recurso. Al escribir un comentario y enviarlo, el método controlador inyecta la información que deseamos del comentario en un objeto de la clase CommentDTO, la cual tambien tiene el otro proyecto. Este objeto CommentDTO es lo que se transformará en mensaje para la RabbitMQ, se lanzará a la cola, y el otro servicio consumirá el mensaje. Al recibirlo, este servicio se ha habilitado para que pueda mandar correos electrónicos, y por lo tanto, procesará el mensaje, obteniendo la informaci´pon pertinente, y enviará el correo al Mail del usuario dueño del recurso publicado.
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/34a3de99-d541-4ae0-8da7-7bf0e0f0a2e5)
 
 ### Generación de clave SSH para github
 
