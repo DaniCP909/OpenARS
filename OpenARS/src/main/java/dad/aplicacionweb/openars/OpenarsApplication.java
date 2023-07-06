@@ -64,6 +64,12 @@ public class OpenarsApplication {
 	}
 
 	@Bean
+	public CacheManager commentCacheManager(){
+		LOG.info("Activating cache comments");
+		return new ConcurrentMapCacheManager("comments");
+	}
+
+	@Bean
 	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);

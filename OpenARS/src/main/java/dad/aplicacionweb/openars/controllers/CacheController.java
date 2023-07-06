@@ -17,10 +17,18 @@ public class CacheController {
     @Autowired
     private CacheManager resourcesCacheManager;
 
+    @Autowired CacheManager commentCacheManager;
+
     @GetMapping("/cache/resources")
     public Map<Object, Object> getResourcesFromCache(){
         ConcurrentMapCache resourcesCache = (ConcurrentMapCache) resourcesCacheManager.getCache("resources");
         return resourcesCache.getNativeCache();
+    }
+
+    @GetMapping("/cache/comments")
+    public Map<Object, Object> getCommentsFromCache(){
+        ConcurrentMapCache commentsCache = (ConcurrentMapCache) commentCacheManager.getCache("comments");
+        return commentsCache.getNativeCache();
     }
 
 }
