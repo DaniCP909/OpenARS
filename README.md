@@ -177,15 +177,15 @@ Tenemos 4 partes: Web, Servicio interno, Base de datos y RabbitMQ.
 
 La web lanza la base de datos, y para desplegar dicha web nos situamos en el directorio y ejecutamos el sihuiente comando:
 
-'''mvn spring-boot:run'''
+```mvn spring-boot:run```
 
 El servicio interno de manera similar, pero necesita que le pasemos como argumento el valor de la contraseña para acceder al correo como aplicación de terceros, el usuario está esecificado en el application.properties aunque podría hacerse lo mismo.
 
-'''mvn spring-boot:run -Dspring-boot.run.arguments=--spring.mail.password=password'''
+```mvn spring-boot:run -Dspring-boot.run.arguments=--spring.mail.password=password```
 
 Además lanzamos la cola de mensajes de RabbitMQ en un contenedor docker con el siguiente mandato:
 
-'''docker run -p 5672:5672 -p 15672:15672 rabbitmq'''
+```docker run -p 5672:5672 -p 15672:15672 rabbitmq```
 
 Así estarán lanzados los 2 servicios y la cola de mensajes y podremos acceder a ella.
 
