@@ -95,7 +95,7 @@ public class DatabaseInitializer {
         resourceRepo.save(new Resource("Carro decoración", "Modelo de un carro para ambientación en formato .3DS"));
         resourceRepo.save(new Resource("Espada Rara", "Modelo de espada para videojuegos en formato .3DS"));
 */
-        /*
+        
         ArrayList<Comment> comments2Add = new ArrayList<>();
         //INICIALIZACION COMENTARIOS:
         comments2Add.add(new Comment(user1, resource1, "Comentario de prueba 1"));
@@ -107,7 +107,7 @@ public class DatabaseInitializer {
         if(commentRepo.findAll().isEmpty()){
             commentRepo.saveAll(comments2Add);
         }
-*/
+
 
 
     }
