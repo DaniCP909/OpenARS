@@ -273,6 +273,7 @@ Queremos hacer nuestra aplicación tolerante a fallos, y para ello implementarem
   - Sesión distribuida
   - Diagrama UML
   - Diagrama de la infraestructura
+  - Video presentación de la aplicación
 
 ### Definición de estructura con Docker-compose
 La aplicación completa se desplegará la aplicación con un Dockerfile en cada proyecto y definiendo la configuración de los servicios y el balanceador en el archivo Docker-compose, al cual uniremos con otro fichero haproxy. Se levantan los siguientes servicios:
@@ -346,6 +347,10 @@ Me he encontrado con algunos errores a la hora de distribuir la sesión, en conc
 ### Diagrama de la infraestructura
 
 ![image](https://github.com/DaniCP909/Tesseract/assets/123632882/8634be28-8393-4730-94f7-43a039d005fd)
+
+### Video Presentación
+
+https://www.youtube.com/watch?v=z-GqlLQbNsM&ab_channel=DaniCP
 
 
 
