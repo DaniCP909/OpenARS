@@ -256,7 +256,7 @@ Por último iniciando sesion como admin, podemos acceder a la pantalla "All-user
 
 
 
-### EXTRA: Generación de clave SSH para github
+### Generación de clave SSH para github
 
 En esta fase y en la siguiente se usado una máquina virtual limpia donde se instala Java (JDK), docker y MySQL.
 Con el objetivo de trabajar más cómodo y poder realizar cambios en el IDE instalado en el ordenador normal con windows, y actualizar rápido los cambios en la máquina virtual, GitHub nos da la mejor solución.
@@ -264,4 +264,92 @@ Con el objetivo de trabajar más cómodo y poder realizar cambios en el IDE inst
 Un paso necesario para ello es la generación de un SSH.
 
 ![image](https://github.com/DaniCP909/Tesseract/assets/123632882/60faac96-25dd-4178-8a0f-d99a3ce418a3)
+
+## Fase 4
+Queremos hacer nuestra aplicación tolerante a fallos, y para ello implementaremos:
+  - Definición de estructura con Docker-compose
+  - Balanceo de carga.
+  - Algunas consultas de entidades cacheadas.
+  - Sesión distribuida
+  - Diagrama UML
+  - Diagrama de la infraestructura
+
+### Definición de estructura con Docker-compose
+La aplicación completa se desplegará la aplicación con un Dockerfile en cada proyecto y definiendo la configuración de los servicios y el balanceador en el archivo Docker-compose, al cual uniremos con otro fichero haproxy. Se levantan los siguientes servicios:
+
+  - Una instancia de la base de datos.
+  - Dos instancias de la aplicación web.
+  - Dos instancias de la rabbitMQ.
+  - Dos instancias del servicio interno.
+  - Una instancia del balanceador de carga
+
+### Balanceo de carga
+
+En este caso se ha optado por balancear la carga con Haproxy, contemplando también el caso de que uno de los nodos falle.
+Para configurarlo lo definimos tanto como servicio dentro de Docker-compose, especificando la versión, la configuración de los puertos, y donde se encuentra el fichero haproxy.cfg. 
+
+En este archivo haproxy es donde se configura mayormente el balanceador:
+    + En la primera sección se definen aspectos generales del balanceador.
+    + Definimos el frontend a continuación. Especificando el modo tcp y el backend por defecto bkopenars.
+    + Definimos el backend, con dos servidores "s1" y "s2" cada uno seguido del nombre del servicio que sale como resultado de levantar docker-compose, un ejemplo sería una instancia de tesseract_openars_1, tesseract_comment_service1 o tesseract_loadbalancer_1.
+
+Una vez levantado podremos observar el log de la aplicación completa con todo los servicios.
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/04bc1be9-cfb4-425e-99f2-f21c778c2c10)
+
+Podríamos abrir otro terminal y observar el log de un servicio en concreto de la siguiente forma
+
+```docker logs tesseract_loadbalancer_1```
+
+
+### Algunas consultas de entidades cacheadas
+
+Las consultas que van a ser cacheadas son las de retorno de todos los elementos de las entidades Resource y Comment, es decir findAll(). Lo que invalidará la cache seran las operaciones de save() o guardado/actualización y deleteById().
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/cdb7e8d2-5373-4334-9451-45faafa21cb9)
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/16f7b24a-55ce-4b18-8b06-47fd4bbf57d3)
+
+IInvalidación de la cache.
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/e23ef166-1d0b-4efe-b1b6-e719e6499620)
+
+En el application.java se define el bean de cache manager, y al final se añade otro bean que soluciona errores de los archivos de timpo imagen.
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/1ed9e1fd-845e-484e-9da6-83aea0c8c4d9)
+
+Por último tenemos el rest controler que define los métodos controladores para acceder a ambas caches desde su respectivas URL.
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/de119b78-b428-4397-a60c-47be4a633e79)
+
+
+El resultado de la cache tras haber accedido a todos los recursos es
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/afd31cb9-988b-45ce-a920-260f0678ac18)
+
+Tras su invalidación
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/87db54dc-cd6b-4028-9d10-128a59900b10)
+
+
+### Sesión distribuida
+
+Para dotar a la aplicación de sesión distribuida se ha elegido implementar Sticky Session a través del uso de cookies por medio del haproxy.
+
+Se define la cookie con el modo roundrobin y luego se especifica en cada servidor, en nuestro caso s1 y s2.
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/7ddb7712-5ae1-464f-9d79-900bebc667ca)
+
+Me he encontrado con algunos errores a la hora de distribuir la sesión, en concreto con los tokens CSRF.
+
+
+### Diagrama de la infraestructura
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/8634be28-8393-4730-94f7-43a039d005fd)
+
+
+
+
+
+
 
