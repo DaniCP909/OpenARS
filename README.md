@@ -168,9 +168,100 @@ Para comunicar ambos servicios se ha decidido implementar una Cola de Mensajes c
 ![ServicioInternoEsquema](https://github.com/DaniCP909/Tesseract/assets/123632882/db437245-a65d-48c8-90b3-5a13c5e7c97c)
 
 En la pantalla "Recurso" encontramos varias opciones, entre ellas, en la parte inferior, un cuadro con los comentarios que dejan los usuarios en dicho recurso. Al escribir un comentario y enviarlo, el método controlador inyecta la información que deseamos del comentario en un objeto de la clase CommentDTO, la cual tambien tiene el otro proyecto. Este objeto CommentDTO es lo que se transformará en mensaje para la RabbitMQ, se lanzará a la cola, y el otro servicio consumirá el mensaje. Al recibirlo, este servicio se ha habilitado para que pueda mandar correos electrónicos, y por lo tanto, procesará el mensaje, obteniendo la informaci´pon pertinente, y enviará el correo al Mail del usuario dueño del recurso publicado.
+
 ![image](https://github.com/DaniCP909/Tesseract/assets/123632882/34a3de99-d541-4ae0-8da7-7bf0e0f0a2e5)
 
-### Generación de clave SSH para github
+### Despliegue
+
+Tenemos 4 partes: Web, Servicio interno, Base de datos y RabbitMQ.
+
+La web lanza la base de datos, y para desplegar dicha web nos situamos en el directorio y ejecutamos el sihuiente comando:
+
+'''mvn spring-boot:run'''
+
+El servicio interno de manera similar, pero necesita que le pasemos como argumento el valor de la contraseña para acceder al correo como aplicación de terceros, el usuario está esecificado en el application.properties aunque podría hacerse lo mismo.
+
+'''mvn spring-boot:run -Dspring-boot.run.arguments=--spring.mail.password=password'''
+
+Además lanzamos la cola de mensajes de RabbitMQ en un contenedor docker con el siguiente mandato:
+
+'''docker run -p 5672:5672 -p 15672:15672 rabbitmq'''
+
+Así estarán lanzados los 2 servicios y la cola de mensajes y podremos acceder a ella.
+
+### Navegación
+
+Inicialmente entramos a la página "Greeting" o lo que sería home, y al no estar loggeados podemos acceder solo a "Todos los recursos", haciendo click en cualquier imagen de esta pantalla inicial, y despues podremos ver los recursos pero ninguna opcion de "Descargar", "Editar", "Eliminar" etc. Las funciones de un usuario no logueado son solo de lectura.
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/7232fd3e-47b9-49b8-811d-1572bc04a112)
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/ad52807b-d6f6-4147-9e95-a394a63ea861)
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/a47086fd-06cf-4630-b276-4ad6cb90b4ca)
+
+Podemos proceder a registrar un usuario con el que más tarde probaremos el loguin.
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/6a7f47f6-1490-4643-8526-93dd8c9e670d)
+
+Iniciamos sesión con este nuevo usuario.
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/d2fa8b36-8074-49f2-850d-8f86da621acc)
+
+Nos aparece el nombre del usuario loggeado. 
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/99b91bdb-5225-4f0e-bb6e-f8bde4a619fc)
+
+Podemos hacer logout y nos devuelve a la página de inicio.
+
+O podemos hacer click en el nombre y dirigirnos a nuestro perfil.
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/2fc03170-d76f-4f12-a87b-f9e1cc8c3706)
+
+Aquí podemos realizar la acción principal de la aplicación web, entre otras accciones.
+
+Hacemos click en subir recurso y nos mostrará el formulario de subida.
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/fc9f3a2e-bae6-4030-a234-26db7295879d)
+
+Una vez aceptamos la subida nos redirecciona a la propia página del recurso.
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/eaa15743-92a8-480e-8693-5b9afc5c616f)
+
+Podemos editar el recurso 
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/ed92eeaa-ff65-42bf-87b1-c212e6b6c162)
+
+Y podemos borrarlo.
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/ef68399d-03f9-468a-9d0e-c136fada4596)
+
+Manteniendo la sesión iniciada con este usuario podemos dirigirnos desde el perfil a "Inicio" -> "Todos los recursos" -> "Recurso"
+Podemos bajar en la página y veremos un cuadro donde podremos escribir un comentario y probamos el servicio interno.
+Recordamos que el mensaje se enviará al correo del dueño del recurso y le notificara quién y en cual de sus recursos se ha realizado.
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/309b1bd7-fb33-49fb-b3d1-62d9ff2824fb)
+
+El correo recibido es el siguiente:
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/5cb673b9-4233-457f-8e22-2f8985936a93)
+
+
+Podemos volver a nuestro perfil y acceder a la sección "Todos nuestros comentarios" donde podremos borrarlos y editarlos.
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/1f2aac2a-bd8b-4a0e-a3fe-92eaa8dc8d8b)
+
+Por último iniciando sesion como admin, podemos acceder a la pantalla "All-users"
+
+![image](https://github.com/DaniCP909/Tesseract/assets/123632882/2de19ea4-2b7a-43c3-b4dd-8b783d89e768)
+
+
+
+### EXTRA: Generación de clave SSH para github
+
+En esta fase y en la siguiente se usado una máquina virtual limpia donde se instala Java (JDK), docker y MySQL.
+Con el objetivo de trabajar más cómodo y poder realizar cambios en el IDE instalado en el ordenador normal con windows, y actualizar rápido los cambios en la máquina virtual, GitHub nos da la mejor solución.
+
+Un paso necesario para ello es la generación de un SSH.
 
 ![image](https://github.com/DaniCP909/Tesseract/assets/123632882/60faac96-25dd-4178-8a0f-d99a3ce418a3)
 
