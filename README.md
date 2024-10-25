@@ -348,11 +348,6 @@ Me he encontrado con algunos errores a la hora de distribuir la sesión, en conc
 
 ![image](https://github.com/DaniCP909/Tesseract/assets/123632882/8634be28-8393-4730-94f7-43a039d005fd)
 
-### Video Presentación
-
-https://www.youtube.com/watch?v=z-GqlLQbNsM&ab_channel=DaniCP
-
-
 
 
 
